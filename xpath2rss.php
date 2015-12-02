@@ -218,7 +218,7 @@ class XPath2RSS {
 		if (!is_readable($fromFile))
 			return;
 
-		$doc = new SimpleXMLElement($fromFile, 0, true);
+		$doc = new SimpleXMLElement(file_get_contents($fromFile));
 		$this->db = array();
 
 		foreach ($doc->channel->item as $item)
@@ -260,6 +260,7 @@ class XPath2RSS {
 if (defined('XPATH2RSS_TEST'))
 	return; // we're running the test suite
 
+libxml_disable_entity_loader(true);
 $argv = $_SERVER['argv'];
 $w = new XPath2RSS();
 
